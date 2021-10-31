@@ -20,7 +20,11 @@ namespace Apostasy.Interpret
 
         private dynamic VisitNode(dynamic node)
         {
-            if (node is BinaryOperation)
+            if (node is UnaryOperation)
+            {
+                return new UnaryOperationVisitor().Visit(node);
+            }
+            else if (node is BinaryOperation)
             {
                 return new BinaryOperationVisitor().Visit(node);
             }

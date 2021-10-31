@@ -26,7 +26,20 @@ namespace Apostasy.AST
 
         private dynamic Factor()
         {
-            if (_currentToken.Type == TokenType.INTEGER)
+            if (_currentToken.Type == TokenType.PLUS)
+            {
+                EatToken(TokenType.PLUS);
+                var node = new UnaryOperation(Factor(), _currentToken);
+                return node;
+            }
+            if (_currentToken.Type == TokenType.MINUS)
+            {
+                var token = _currentToken;
+                EatToken(TokenType.MINUS);
+                var node = new UnaryOperation(Factor(), token);
+                return node;
+            }
+            else if (_currentToken.Type == TokenType.INTEGER)
             {
                 var token = _currentToken;
                 EatToken(TokenType.INTEGER);
